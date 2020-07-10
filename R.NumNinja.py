@@ -78,7 +78,11 @@ while (correctInput is False):
         elif (minunit > maxunit):
             print("\nThe minimum value cannot be greater than the maximum value.")
     except ZeroDivisionError:
+        print("\n\nThe task completed successfully in zero seconds.")
+        print("Press any key to exit.")
+        input()
         break
     except:
+        print(e)
         print("\nOne of more of the inputs are invalid. This can happen when any spaces or other characters have been entered instead of numbers. Please try again.")
         continue
