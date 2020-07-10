@@ -1,4 +1,4 @@
-import time; import os
+import time
 from colorama import init
 from termcolor import colored
 from tqdm import tqdm
@@ -28,11 +28,12 @@ print(colored('''                                   ----------------------------
 ########## Randomizer ###########
 
 def generate(minunit, maxunit, top):
-    if (YN == "1"):
+
+    if (progressPrompt == "1"):
         print()
-        for i in tqdm(range(0, top + 1), desc="Progress", unit=" numbers", unit_scale=1):
+        for i in tqdm(range(0, top + 1), desc="Progress", unit=" lines", unit_scale=1):
             file.write(str(random.randrange(minunit, maxunit, 1)) + "\n")
-    elif (YN == "2"):
+    elif (progressPrompt == "2"):
         for i in range(0, top):
             file.write(str(random.randrange(minunit, maxunit, 1)) + "\n")
     return()
@@ -52,7 +53,7 @@ while (correctInput is False):
 
             print("\nShow progress?")
             print("1. Yes (slower)\n2. No (faster)")
-            YN = input("\nSelect option number (Default = No): ") or "2"
+            progressPrompt = input("\nSelect option number (Default = No): ") or "2"
 
             Output += str(minunit) + " to " + str(maxunit) + " [Randomized].txt"
 
@@ -69,7 +70,6 @@ while (correctInput is False):
             print("Press any key to exit.")
             input()
 
-            os._exit()
             break
 
         elif (minunit == maxunit):
@@ -77,6 +77,8 @@ while (correctInput is False):
 
         elif (minunit > maxunit):
             print("\nThe minimum value cannot be greater than the maximum value.")
+    except ZeroDivisionError:
+        break
     except:
         print("\nOne of more of the inputs are invalid. This can happen when any spaces or other characters have been entered instead of numbers. Please try again.")
         continue
