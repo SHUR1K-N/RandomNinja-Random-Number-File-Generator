@@ -39,6 +39,28 @@ def generate(minunit, maxunit, top):
     return()
 
 
+def generateUnique(minunit, maxunit, top):
+    tempList = []
+    if (progressPrompt == "1"):
+        for i in tqdm(range(0, top + 1), desc="Progress", unit=" lines", unit_scale=1):
+            while (len(tempList) < top):
+                randNum = str(random.randrange(minunit, maxunit, 1)) + "\n"
+                if randNum not in tempList:
+                    tempList.append(randNum)
+                    file.write(randNum)
+                else:
+                    continue
+    elif (progressPrompt == "2"):
+        while (len(tempList) < top):
+            randNum = str(random.randrange(minunit, maxunit, 1)) + "\n"
+            if randNum not in tempList:
+                tempList.append(randNum)
+                file.write(randNum)
+            else:
+                continue
+    return()
+
+
 ############### Main ###############
 
 while (correctInput is False):
@@ -55,16 +77,28 @@ while (correctInput is False):
             print("1. Yes (slower)\n2. No (faster)")
             progressPrompt = input("\nSelect option number (Default = No): ") or "2"
 
+            print("\nAllow duplicate values?")
+            print("1. Yes\n2. No")
+            uniquePrompt = input("\nSelect option number (Default = No): ") or "2"
+
             Output += str(minunit) + " to " + str(maxunit) + " [Randomized].txt"
 
             print("\nNumber of lines that will be generated: %d" % top)
 
             print("\nWorking...", end='')
 
-            with open(Output, '+w') as file:
-                start = time.time()
-                generate(minunit, maxunit, top)
-                completionTime = time.time() - start
+            maxunit += 1       # To include the maxunit integer as well (added this far in to not interfere with file naming string)
+
+            if uniquePrompt == "1":
+                with open(Output, '+w') as file:
+                    start = time.time()
+                    generate(minunit, maxunit, top)
+                    completionTime = time.time() - start
+            elif uniquePrompt == "2":
+                with open(Output, '+w') as file:
+                    start = time.time()
+                    generateUnique(minunit, maxunit, top)
+                    completionTime = time.time() - start
             file.close()
             print("\n\nThe task completed successfully in %f seconds. (at ~%d lines/sec)" % (completionTime, top // completionTime))
             print("Press any key to exit.")
