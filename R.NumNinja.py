@@ -29,6 +29,9 @@ print(colored('''                                   ----------------------------
 
 def generate(minunit, maxunit, top):
 
+    print("\nNumber of lines that will be generated: %d" % top)
+    print("\nWorking...", end='')
+
     if (progressPrompt == "1"):
         print()
         for i in tqdm(range(0, top + 1), desc="Progress", unit=" lines", unit_scale=1):
@@ -41,6 +44,15 @@ def generate(minunit, maxunit, top):
 
 def generateUnique(minunit, maxunit, top):
     tempList = []
+    check = (maxunit - minunit)
+    if check >= top:
+        pass
+    elif check < top:
+        top = (maxunit - 1)
+
+    print("\nNumber of lines that will be generated: %d" % top)
+    print("\nWorking...", end='')
+
     if (progressPrompt == "1"):
         for i in tqdm(range(0, top + 1), desc="Progress", unit=" lines", unit_scale=1):
             while (len(tempList) < top):
@@ -77,15 +89,11 @@ while (correctInput is False):
             print("1. Yes (slower)\n2. No (faster)")
             progressPrompt = input("\nSelect option number (Default = No): ") or "2"
 
-            print("\nAllow duplicate values?")
+            print("\nAllow repeating values?")
             print("1. Yes\n2. No")
             uniquePrompt = input("\nSelect option number (Default = No): ") or "2"
 
             Output += str(minunit) + " to " + str(maxunit) + " [Randomized].txt"
-
-            print("\nNumber of lines that will be generated: %d" % top)
-
-            print("\nWorking...", end='')
 
             maxunit += 1       # To include the maxunit integer as well (added this far in to not interfere with file naming string)
 
