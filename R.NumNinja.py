@@ -29,12 +29,9 @@ print(colored('''                                   ----------------------------
 
 def generate(minunit, maxunit, top):
 
-    print("\nNumber of lines that will be generated: %d" % top)
-    print("\nWorking...", end='')
-
     if (progressPrompt == "1"):
         print()
-        for i in tqdm(range(0, top + 1), desc="Progress", unit=" lines", unit_scale=1):
+        for i in tqdm(range(0, top), desc="Progress", unit=" lines", unit_scale=1):
             file.write(str(random.randrange(minunit, maxunit, 1)) + "\n")
     elif (progressPrompt == "2"):
         for i in range(0, top):
@@ -44,36 +41,15 @@ def generate(minunit, maxunit, top):
 
 def generateUnique(minunit, maxunit, top):
     tempList = []
-    check = (maxunit - minunit)
-    if check >= top:
-        pass
-    elif check < top:
-        top = (maxunit - 1)
-
-    print("\nNumber of lines that will be generated: %d" % top)
-    print("\nWorking...", end='')
-
-    if (progressPrompt == "1"):
-        for i in tqdm(range(0, top + 1), desc="Progress", unit=" lines", unit_scale=1):
-            while (len(tempList) < top):
-                randNum = str(random.randrange(minunit, maxunit, 1)) + "\n"
-                if randNum not in tempList:
-                    tempList.append(randNum)
-                    file.write(randNum)
-                else:
-                    continue
-    elif (progressPrompt == "2"):
-        while (len(tempList) < top):
-            randNum = str(random.randrange(minunit, maxunit, 1)) + "\n"
-            if randNum not in tempList:
-                tempList.append(randNum)
-                file.write(randNum)
-            else:
-                continue
+    while (len(tempList) < top):
+        randNum = str(random.randrange(minunit, maxunit, 1)) + "\n"
+        if randNum not in tempList:
+            tempList.append(randNum)
+            file.write(randNum)
     return()
 
-
 ############### Main ###############
+
 
 while (correctInput is False):
     try:
@@ -85,17 +61,27 @@ while (correctInput is False):
             Output = str(input("Enter output folder (Default = working folder):") or "./")
             Output += "/"
 
-            print("\nShow progress?")
-            print("1. Yes (slower)\n2. No (faster)")
-            progressPrompt = input("\nSelect option number (Default = No): ") or "2"
-
             print("\nAllow repeating values?")
             print("1. Yes\n2. No")
             uniquePrompt = input("\nSelect option number (Default = No): ") or "2"
 
+            if uniquePrompt == "1":
+                print("\nShow progress?")
+                print("1. Yes (slower)\n2. No (faster)")
+                progressPrompt = input("\nSelect option number (Default = No): ") or "2"
+
             Output += str(minunit) + " to " + str(maxunit) + " [Randomized].txt"
 
-            maxunit += 1       # To include the maxunit integer as well (added this far in to not interfere with file naming string)
+            maxunit += 1                        # To include the maxunit integer as well (added this far in to not interfere with file naming string)
+
+            check = (maxunit - minunit)
+            if (check >= top):
+                pass
+            elif (check < top):
+                top = (maxunit - minunit)
+
+            print("\nNumber of lines that will be generated: %d" % top)
+            print("\nWorking...", end='')
 
             if uniquePrompt == "1":
                 with open(Output, '+w') as file:
