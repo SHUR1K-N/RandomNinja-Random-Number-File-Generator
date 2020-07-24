@@ -111,5 +111,5 @@ while (correctInput is False):
         input()
         break
     except:
-        print("\nOne of more of the inputs are invalid. This can happen when any spaces or other characters have been entered instead of numbers. Please try again.")
+        print("\nOne of more of the inputs are invalid. This can happen when any spaces or other characters have been entered instead of numbers. Please try again.\n")
         continue
