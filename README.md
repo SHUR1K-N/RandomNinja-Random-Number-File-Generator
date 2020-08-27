@@ -4,10 +4,10 @@ A fast random number file generator (500,000+ lines per second) I created, that 
 
 - A custom range of integers to generate within
 - The maximum number of lines to be generated
-- Method (either non-duplicating or duplicating values)
+- Method (either allow duplicating values or disallow)
 - Output location for the generated .txt file
 
-...and then generates a text document of randomized integers within the specified constraints; also supports redundancy-eliminating mode (non-repeating values). Ideal to aid in benchmarking sorting algorithms. This project was created in Python, primarily for the purpose of testing my own [Double-Edged Sorting algorithm's](https://github.com/SHUR1K-N/Double-Edged-Sort) performance.
+...and then generates a text document of randomized integers within the specified constraints; also supports zero-redundancy (non-repeating values). Ideal to aid in benchmarking sorting algorithms or any general usage scenario where large sets of random integers may be reqired (such as statistics). This project was created in Python, primarily for the purpose of testing my own [Double-Edged Sorting algorithm's](https://github.com/SHUR1K-N/Double-Edged-Sort) performance.
 
 **Dependencies you may have to "pip install" before being able to run the Python file(s):**
 
