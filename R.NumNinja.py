@@ -30,26 +30,24 @@ def printBanner():
 
 ########## Randomizer ###########
 
-def generate(minunit, maxunit, top):
+def generate():
 
-    if (progressPrompt == "1"):
+    if (progressPrompt == 1):
         print()
         for i in tqdm(range(0, top), desc="Progress", unit=" lines", unit_scale=1):
-            file.write(str(random.randrange(minunit, maxunit, 1)) + "\n")
-    elif (progressPrompt == "2"):
+            file.write(str(random.randrange(minunit, maxunit + 1, 1)) + "\n")
+    elif (progressPrompt == 2):
         for i in range(0, top):
-            file.write(str(random.randrange(minunit, maxunit, 1)) + "\n")
-    return()
+            file.write(str(random.randrange(minunit, maxunit + 1, 1)) + "\n")
 
 
-def generateUnique(minunit, maxunit, top):
+def generateUnique():
     tempList = []
     while (len(tempList) < top):
-        randNum = str(random.randrange(minunit, maxunit, 1)) + "\n"
+        randNum = str(random.randrange(minunit, maxunit + 1, 1)) + "\n"
         if randNum not in tempList:
             tempList.append(randNum)
             file.write(randNum)
-    return()
 
 
 ############### Main ###############
@@ -60,7 +58,7 @@ if __name__ == "__main__":
 
     while (correctInput is False):
         try:
-            minunit = int(input("\nEnter the minimum value (Default = zero): ") or '0')
+            minunit = int(input("\nEnter the minimum value (Default = zero): ") or 0)
             maxunit = int(input("Enter the maximum value: "))
             top = int(input("Enter the maximum number of lines to be generated: "))
 
@@ -70,16 +68,14 @@ if __name__ == "__main__":
 
                 print("\nAllow repeating values?")
                 print("1. Yes\n2. No")
-                uniquePrompt = input("\nSelect option number (Default = No): ") or "2"
+                uniquePrompt = int(input("\nSelect option number (Default = No): ") or 2)
 
-                if uniquePrompt == "1":
+                if (uniquePrompt == 1):
                     print("\nShow progress?")
                     print("1. Yes (slower)\n2. No (faster)")
-                    progressPrompt = input("\nSelect option number (Default = No): ") or "2"
+                    progressPrompt = int(input("\nSelect option number (Default = No): ") or 2)
 
-                Output += str(minunit) + " to " + str(maxunit) + " [Randomized].txt"
-
-                maxunit += 1                        # To include the maxunit integer as well (added this far in to not interfere with file naming string)
+                Output += f"{minunit} to {maxunit} [Randomized].txt"
 
                 check = (maxunit - minunit)
                 if (check >= top):
@@ -87,21 +83,22 @@ if __name__ == "__main__":
                 elif (check < top):
                     top = (maxunit - minunit)
 
-                print("\nNumber of lines that will be generated: %d" % top)
+                print(f"\nNumber of lines that will be generated: {top}")
                 print("\nWorking...", end='')
 
-                if uniquePrompt == "1":
-                    with open(Output, '+w') as file:
+                if (uniquePrompt == 1):
+                    with open(Output, "w") as file:
                         start = time.time()
-                        generate(minunit, maxunit, top)
+                        generate()
                         completionTime = time.time() - start
-                elif uniquePrompt == "2":
-                    with open(Output, '+w') as file:
+                elif (uniquePrompt == 2):
+                    with open(Output, "w") as file:
                         start = time.time()
-                        generateUnique(minunit, maxunit, top)
+                        generateUnique()
                         completionTime = time.time() - start
-                file.close()
-                print("\n\nThe task completed successfully in %f seconds. (at ~%d lines/sec)" % (completionTime, top // completionTime))
+                        rate = top // completionTime
+
+                print(f"\n\nThe task completed successfully in {completionTime} seconds. (at ~{rate} lines/sec)")
                 print("Press any key to exit.")
                 input()
 
@@ -118,5 +115,7 @@ if __name__ == "__main__":
             input()
             break
         except:
+            # print(e)
             print("\nOne of more of the inputs are invalid. This can happen when any spaces or other characters have been entered instead of numbers. Please try again.\n")
             continue
+        correctInput = True
