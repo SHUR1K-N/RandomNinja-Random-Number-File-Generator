@@ -21,14 +21,15 @@ BANNER1 = colored('''
 ''', 'blue')
 BANNER2 = colored('''                                Random NumNinja: The Random Number File Generator''', 'red')
 BANNER3 = colored('''                               ---------------------------------------------------''', 'blue')
+numSet = set()
 
 
 def printBanner():
     init()
     print(BANNER1), print(BANNER2), print(BANNER3)
 
-
 ########## Randomizer ###########
+
 
 def generate():
 
@@ -42,12 +43,11 @@ def generate():
 
 
 def generateUnique():
-    tempList = []
-    while (len(tempList) < top):
-        randNum = str(random.randrange(minunit, maxunit + 1, 1)) + "\n"
-        if randNum not in tempList:
-            tempList.append(randNum)
-            file.write(randNum)
+    while (len(numSet) <= top):
+        randNum = str(random.randrange(minunit, maxunit + 1, 1))
+        numSet.add(randNum)
+    for element in numSet:
+        file.write(element + "\n")
 
 
 ############### Main ###############
@@ -60,7 +60,6 @@ if __name__ == "__main__":
         try:
             minunit = int(input("\nEnter the minimum value (Default = zero): ") or 0)
             maxunit = int(input("Enter the maximum value: "))
-            top = int(input("Enter the maximum number of lines to be generated: "))
 
             if maxunit > minunit:
                 Output = str(input("Enter output folder (Default = working folder):") or "./")
@@ -77,13 +76,15 @@ if __name__ == "__main__":
 
                 Output += f"{minunit} to {maxunit} [Randomized].txt"
 
-                check = (maxunit - minunit)
-                if (check >= top):
+                top = int(input("Enter the maximum number of lines to be generated (Default = maximum within specified limit): ") or (maxunit - minunit))
+
+                checkTop = (maxunit - minunit)
+                if (checkTop >= top):
                     pass
-                elif (check < top):
+                elif (checkTop < top):
                     top = (maxunit - minunit)
 
-                print(f"\nNumber of lines that will be generated: {top}")
+                print(f"\nNumber of lines that will be generated: {top + 1}")
                 print("\nWorking...", end='')
 
                 if (uniquePrompt == 1):
@@ -96,7 +97,7 @@ if __name__ == "__main__":
                         start = time.time()
                         generateUnique()
                         completionTime = time.time() - start
-                        rate = top // completionTime
+                rate = top // completionTime
 
                 print(f"\n\nThe task completed successfully in {completionTime} seconds. (at ~{rate} lines/sec)")
                 print("Press any key to exit.")
@@ -115,7 +116,7 @@ if __name__ == "__main__":
             input()
             break
         except:
-            # print(e)
+            print(e)
             print("\nOne of more of the inputs are invalid. This can happen when any spaces or other characters have been entered instead of numbers. Please try again.\n")
             continue
         correctInput = True
