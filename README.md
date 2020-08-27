@@ -1,4 +1,4 @@
-# R.NumNinja: The Random Number File Generator
+# RandomNumNinja: The Random Number File Generator
 
 A fast random number file generator (500,000+ lines per second) I created, that takes the following as input:
 
