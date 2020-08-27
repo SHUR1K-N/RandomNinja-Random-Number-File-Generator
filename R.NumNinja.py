@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
                 Output += f"{minunit} to {maxunit} [Randomized].txt"
 
-                top = int(input("Enter the maximum number of lines to be generated (Default = maximum within specified limit): ") or (maxunit - minunit))
+                top = int(input("\nEnter the maximum number of lines to be generated (Default = maximum within specified limit): ") or (maxunit - minunit))
 
                 checkTop = (maxunit - minunit)
                 if (checkTop >= top):
