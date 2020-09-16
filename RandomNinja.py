@@ -4,6 +4,8 @@ from termcolor import colored
 from tqdm import tqdm
 import random
 
+init() # Initilizing colors
+
 BANNER1 = colored('''
          ██▀███   ▄▄▄       ███▄    █ ▓█████▄  ▒█████   ███▄ ▄███▓ ███▄    █  ██▓ ███▄    █  ▄▄▄██▀▀▀▄▄▄
         ▓██ ▒ ██▒▒████▄     ██ ▀█   █ ▒██▀ ██▌▒██▒  ██▒▓██▒▀█▀ ██▒ ██ ▀█   █ ▓██▒ ██ ▀█   █    ▒██  ▒████▄
@@ -20,7 +22,6 @@ numSet = set()
 
 
 def printBanner():
-    init()
     print(BANNER1), print(BANNER2), print(BANNER3)
 
 ########## Randomizer ###########
@@ -59,98 +60,107 @@ if __name__ == "__main__":
 
     printBanner()
 
-    while (True):
-        try:
-            minunit = int(input("\nEnter the minimum value (Default = zero): ") or 0)
-            maxunit = int(input("Enter the maximum value: "))
-            break
+    try:
 
-            if (maxunit > minunit):
-                pass
-            elif (minunit == maxunit):
+        while (True):
+            try:
+                minunit = int(input("\nEnter the minimum value (Default = zero): ") or 0)
+                maxunit = int(input("Enter the maximum value: "))
+                break
+
+                if (maxunit > minunit):
+                    pass
+                elif (minunit == maxunit):
+                    clrscr()
+                    print("\nThe minimum value cannot be equal to the maximum value.")
+                    continue
+
+                elif (minunit > maxunit):
+                    clrscr()
+                    print("\nThe minimum value cannot be greater than the maximum value.")
+                    continue
+            except KeyboardInterrupt:
+                raise KeyboardInterrupt
+            except:
                 clrscr()
-                print("\nThe minimum value cannot be equal to the maximum value.")
+                print("\nInvalid entry (not an integer). Please try again.\n")
                 continue
 
-            elif (minunit > maxunit):
-                clrscr()
-                print("\nThe minimum value cannot be greater than the maximum value.")
-                continue
-        except:
-            clrscr()
-            print("\nInvalid entry (not an integer). Please try again.\n")
-            continue
+        while (True):
+            print("\nAllow repeating values?")
+            print("1. Yes\n2. No")
+            uniquePrompt = input("\nSelect option number (Default = No): ") or "2"
 
-    while (True):
-        print("\nAllow repeating values?")
-        print("1. Yes\n2. No")
-        uniquePrompt = input("\nSelect option number (Default = No): ") or "2"
+            if (uniquePrompt == "1"):
+                print("\nShow progress?")
+                print("1. Yes (slower)\n2. No (faster)")
+                progressPrompt = input("\nSelect option number (Default = No): ") or "2"
+                break
+
+            elif (uniquePrompt == "2"):
+                break
+
+            else:
+                clrscr()
+                print("\nInvalid entry. Choose either option 1 or 2. Try again.\n")
+                continue
+
+        while (True):
+            try:
+                top = int(input("\nEnter the maximum number of lines to be generated (Default = maximum within specified limit): ") or (maxunit - minunit))
+                break
+            except:
+                clrscr()
+                print("\nInvalid entry (not an integer). Please try again.\n")
+                continue
+
+        while (True):
+            output = str(input("\nEnter output folder (Default = working folder):") or "./")
+            output += "/"
+
+            if (os.path.exists(output) is True):
+                output += f"{minunit} to {maxunit} [Randomized].txt"
+                break
+            else:
+                clrscr()
+                print("\nEither file does not exist or invalid path entered. Try again.\n")
+                continue
+
+        checkTop = (maxunit - minunit)
+        if (checkTop >= top):
+            pass
+        elif (checkTop < top):
+            top = (maxunit - minunit)
+
+        clrscr()
+        print(f"\nNumber of lines that will be generated: {top + 1}")
+        print("\nWorking...", end='')
 
         if (uniquePrompt == "1"):
-            print("\nShow progress?")
-            print("1. Yes (slower)\n2. No (faster)")
-            progressPrompt = input("\nSelect option number (Default = No): ") or "2"
-            break
-
+            with open(output, "w") as file:
+                start = time.time()
+                generate()
+                completionTime = time.time() - start
         elif (uniquePrompt == "2"):
-            break
-
-        else:
-            clrscr()
-            print("\nInvalid entry. Choose either option 1 or 2. Try again.\n")
-            continue
-
-    while (True):
+            with open(output, "w") as file:
+                start = time.time()
+                generateUnique()
+                completionTime = time.time() - start
         try:
-            top = int(input("\nEnter the maximum number of lines to be generated (Default = maximum within specified limit): ") or (maxunit - minunit))
-            break
-        except:
+            rate = top // completionTime
+
             clrscr()
-            print("\nInvalid entry (not an integer). Please try again.\n")
-            continue
+            print(f"\n\nThe task completed successfully in {completionTime} seconds. (at ~{rate} lines/sec)")
+            print("Press Enter to exit.")
+            input()
 
-    while (True):
-        output = str(input("\nEnter output folder (Default = working folder):") or "./")
-        output += "/"
-
-        if (os.path.exists(output) is True):
-            output += f"{minunit} to {maxunit} [Randomized].txt"
-            break
-        else:
+        except ZeroDivisionError:
             clrscr()
-            print("\nEither file does not exist or invalid path entered. Try again.\n")
-            continue
-
-    checkTop = (maxunit - minunit)
-    if (checkTop >= top):
-        pass
-    elif (checkTop < top):
-        top = (maxunit - minunit)
-
-    clrscr()
-    print(f"\nNumber of lines that will be generated: {top + 1}")
-    print("\nWorking...", end='')
-
-    if (uniquePrompt == "1"):
-        with open(output, "w") as file:
-            start = time.time()
-            generate()
-            completionTime = time.time() - start
-    elif (uniquePrompt == "2"):
-        with open(output, "w") as file:
-            start = time.time()
-            generateUnique()
-            completionTime = time.time() - start
-    try:
-        rate = top // completionTime
-
-        clrscr()
-        print(f"\n\nThe task completed successfully in {completionTime} seconds. (at ~{rate} lines/sec)")
+            print("\n\nThe task completed successfully in zero seconds.")
         print("Press Enter to exit.")
         input()
-
-    except ZeroDivisionError:
+    except KeyboardInterrupt:
         clrscr()
-        print("\n\nThe task completed successfully in zero seconds.")
+        print("\nCTRL ^C\n\nThrew a wrench in the works.")
         print("Press Enter to exit.")
         input()
