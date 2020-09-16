@@ -10,9 +10,9 @@ A fast random number file generator (500,000+ lines per second), that takes the 
 
 ...and then generates a text document of randomized integers within the specified constraints; also supports zero-redundancy (non-repeating values). Ideal to aid in benchmarking sorting algorithms or any general usage scenario where large sets of random integers may be reqired (such as statistics).
 
-This project was created in Python, primarily for the purpose of testing my own [Double-Edged Sorting algorithm's](https://github.com/SHUR1K-N/Double-Edged-Sort) performance.
+This project was created in Python, primarily for the purpose of testing my own [**Double-Edged Sorting algorithm's**](https://github.com/SHUR1K-N/Double-Edged-Sort) performance.
 
-## Dependencies to "pip install"
+## Dependencies to PIP-Install
 - **tqdm** (for progress bars)
 - **colorama** (for colors)
 - **termcolor** (for colors)
