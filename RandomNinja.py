@@ -157,8 +157,8 @@ if __name__ == "__main__":
         except ZeroDivisionError:
             clrscr()
             print("\n\nThe task completed successfully in zero seconds.")
-        print("Press Enter to exit.")
-        input()
+            print("Press Enter to exit.")
+            input()
     except KeyboardInterrupt:
         clrscr()
         print("\nCTRL ^C\n\nThrew a wrench in the works.")
