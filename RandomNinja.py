@@ -1,8 +1,8 @@
-import time; import os
-import colorama
-from termcolor import colored
-from tqdm import tqdm
 import random
+import time; import os
+from tqdm import tqdm
+from termcolor import colored
+import colorama
 
 colorama.init()
 
