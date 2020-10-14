@@ -1,4 +1,4 @@
-# RandomNinja: The Random Number File Generator
+# RandomNinja: Random Number File Generator
 
 ## Description & Usage
 A fast random number file generator (500,000+ lines per second), that takes the following as input:
