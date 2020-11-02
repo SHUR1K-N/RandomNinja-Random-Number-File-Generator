@@ -1,0 +1,3 @@
+tqdm 		# for progress bars
+colorama 	# for colors
+termcolor 	# for colors
