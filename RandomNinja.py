@@ -87,6 +87,14 @@ if __name__ == "__main__":
                 clrscr()
                 print("\nInvalid entry (not an integer). Please try again.\n")
                 continue
+        while (True):
+            try:
+                top = int(input("\nEnter the maximum number of lines to be generated (Default = maximum within specified limit): ") or (maxunit - minunit))
+                break
+            except:
+                clrscr()
+                print("\nInvalid entry (not an integer). Please try again.\n")
+                continue
 
         while (True):
             print("\nAllow repeating values?")
@@ -105,15 +113,6 @@ if __name__ == "__main__":
             else:
                 clrscr()
                 print("\nInvalid entry. Choose either option 1 or 2. Try again.\n")
-                continue
-
-        while (True):
-            try:
-                top = int(input("\nEnter the maximum number of lines to be generated (Default = maximum within specified limit): ") or (maxunit - minunit))
-                break
-            except:
-                clrscr()
-                print("\nInvalid entry (not an integer). Please try again.\n")
                 continue
 
         while (True):
