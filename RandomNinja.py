@@ -131,7 +131,8 @@ if __name__ == "__main__":
         if (checkTop >= top):
             pass
         elif (checkTop < top):
-            top = (maxunit - minunit)
+            if uniquePrompt != "1":
+                top = (maxunit - minunit)
 
         clrscr()
         print(f"\nNumber of lines that will be generated: {top + 1}")
