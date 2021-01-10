@@ -20,4 +20,4 @@ When the user selects the option to not allow repeating values, RandomNinja gene
 
 ------------
 
-My website: http://bit.do/SHUR1KN
+My website: https://TheComputerNoob.com
